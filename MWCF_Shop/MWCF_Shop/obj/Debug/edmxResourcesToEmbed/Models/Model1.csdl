@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MWC_Shop_UpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ADMIN">
+    <Key>
+      <PropertyRef Name="MaAD" />
+    </Key>
+    <Property Name="MaAD" Type="Int32" Nullable="false" />
+    <Property Name="TenAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChiAD" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoaiAD" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TenDNAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhauAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaysinhAD" Type="DateTime" Precision="0" />
+    <Property Name="GioiTinhAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QuyenAD" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CTDATHANG">
+    <Key>
+      <PropertyRef Name="SoDH" />
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="SoDH" Type="Int32" Nullable="false" />
+    <Property Name="MaSP" Type="Int32" Nullable="false" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="DonGia" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="ThanhTien" Type="Decimal" Precision="29" Scale="3" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="DONDATHANG" Relationship="Self.FK_1" FromRole="CTDATHANG" ToRole="DONDATHANG" />
+    <NavigationProperty Name="SANPHAM" Relationship="Self.FK_2" FromRole="CTDATHANG" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="DANHMUC_SP">
+    <Key>
+      <PropertyRef Name="MaDM" />
+    </Key>
+    <Property Name="MaDM" Type="Int32" Nullable="false" />
+    <Property Name="TenDM" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAM" Relationship="Self.FK_3" FromRole="DANHMUC_SP" ToRole="SANPHAM" />
+    <NavigationProperty Name="LOAISANPHAM" Relationship="Self.fk_5" FromRole="DANHMUC_SP" ToRole="LOAISANPHAM" />
+  </EntityType>
+  <EntityType Name="DONDATHANG">
+    <Key>
+      <PropertyRef Name="SoDH" />
+    </Key>
+    <Property Name="SoDH" Type="Int32" Nullable="false" />
+    <Property Name="MaKH" Type="Int32" />
+    <Property Name="NgayDH" Type="DateTime" Precision="0" />
+    <Property Name="TriGia" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="NgayGiaoHang" Type="DateTime" Precision="0" />
+    <Property Name="TenNguoiNhan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChiNhan" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoaiNhan" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="HTThanhToan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HTGiaoHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CTDATHANG" Relationship="Self.FK_1" FromRole="DONDATHANG" ToRole="CTDATHANG" />
+    <NavigationProperty Name="KHACHHANG" Relationship="Self.FK_4" FromRole="DONDATHANG" ToRole="KHACHHANG" />
+  </EntityType>
+  <EntityType Name="KHACHHANG">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="Int32" Nullable="false" />
+    <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DiachiKH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoaiKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TenDN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="GioiTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DONDATHANG" Relationship="Self.FK_4" FromRole="KHACHHANG" ToRole="DONDATHANG" />
+  </EntityType>
+  <EntityType Name="LOAISANPHAM">
+    <Key>
+      <PropertyRef Name="MaLoai" />
+    </Key>
+    <Property Name="MaLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenLoai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaDM" Type="Int32" />
+    <NavigationProperty Name="DANHMUC_SP" Relationship="Self.fk_5" FromRole="LOAISANPHAM" ToRole="DANHMUC_SP" />
+    <NavigationProperty Name="SANPHAM" Relationship="MWC_Shop_UpModel.fk_6" FromRole="LOAISANPHAM" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenSp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DonGia" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="Hinh" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+    <Property Name="SoluongBan" Type="Int32" />
+    <Property Name="MaDM" Type="Int32" />
+    <NavigationProperty Name="CTDATHANG" Relationship="Self.FK_2" FromRole="SANPHAM" ToRole="CTDATHANG" />
+    <NavigationProperty Name="DANHMUC_SP" Relationship="Self.FK_3" FromRole="SANPHAM" ToRole="DANHMUC_SP" />
+    <Property Name="MaLoai" Type="Int32" />
+    <NavigationProperty Name="LOAISANPHAM" Relationship="MWC_Shop_UpModel.fk_6" FromRole="SANPHAM" ToRole="LOAISANPHAM" />
+    <NavigationProperty Name="SANPHAM1" Relationship="MWC_Shop_UpModel.t1" FromRole="SANPHAM" ToRole="SANPHAM1" />
+    <NavigationProperty Name="SANPHAM2" Relationship="MWC_Shop_UpModel.t1" FromRole="SANPHAM1" ToRole="SANPHAM" />
+    <Property Name="MaTTSP" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_1">
+    <End Role="DONDATHANG" Type="Self.DONDATHANG" Multiplicity="1" />
+    <End Role="CTDATHANG" Type="Self.CTDATHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DONDATHANG">
+        <PropertyRef Name="SoDH" />
+      </Principal>
+      <Dependent Role="CTDATHANG">
+        <PropertyRef Name="SoDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_2">
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+    <End Role="CTDATHANG" Type="Self.CTDATHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="CTDATHANG">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_3">
+    <End Role="DANHMUC_SP" Type="Self.DANHMUC_SP" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC_SP">
+        <PropertyRef Name="MaDM" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaDM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_5">
+    <End Role="DANHMUC_SP" Type="Self.DANHMUC_SP" Multiplicity="0..1" />
+    <End Role="LOAISANPHAM" Type="Self.LOAISANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC_SP">
+        <PropertyRef Name="MaDM" />
+      </Principal>
+      <Dependent Role="LOAISANPHAM">
+        <PropertyRef Name="MaDM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_4">
+    <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+    <End Role="DONDATHANG" Type="Self.DONDATHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACHHANG">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="DONDATHANG">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MWC_Shop_UpEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ADMIN" EntityType="Self.ADMIN" />
+    <EntitySet Name="CTDATHANG" EntityType="Self.CTDATHANG" />
+    <EntitySet Name="DANHMUC_SP" EntityType="Self.DANHMUC_SP" />
+    <EntitySet Name="DONDATHANG" EntityType="Self.DONDATHANG" />
+    <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" />
+    <EntitySet Name="LOAISANPHAM" EntityType="Self.LOAISANPHAM" />
+    <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_1" Association="Self.FK_1">
+      <End Role="DONDATHANG" EntitySet="DONDATHANG" />
+      <End Role="CTDATHANG" EntitySet="CTDATHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_2" Association="Self.FK_2">
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+      <End Role="CTDATHANG" EntitySet="CTDATHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK_3" Association="Self.FK_3">
+      <End Role="DANHMUC_SP" EntitySet="DANHMUC_SP" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="fk_5" Association="Self.fk_5">
+      <End Role="DANHMUC_SP" EntitySet="DANHMUC_SP" />
+      <End Role="LOAISANPHAM" EntitySet="LOAISANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_4" Association="Self.FK_4">
+      <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+      <End Role="DONDATHANG" EntitySet="DONDATHANG" />
+    </AssociationSet>
+    <AssociationSet Name="fk_6" Association="MWC_Shop_UpModel.fk_6">
+      <End Role="LOAISANPHAM" EntitySet="LOAISANPHAM" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="t1" Association="MWC_Shop_UpModel.t1">
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+      <End Role="SANPHAM1" EntitySet="SANPHAM" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="fk_6">
+    <End Type="MWC_Shop_UpModel.LOAISANPHAM" Role="LOAISANPHAM" Multiplicity="0..1" />
+    <End Type="MWC_Shop_UpModel.SANPHAM" Role="SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAISANPHAM">
+        <PropertyRef Name="MaLoai" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="t1">
+    <End Type="MWC_Shop_UpModel.SANPHAM" Role="SANPHAM" Multiplicity="1" />
+    <End Type="MWC_Shop_UpModel.SANPHAM" Role="SANPHAM1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="SANPHAM1">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
